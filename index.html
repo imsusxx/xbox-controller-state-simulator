@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xbox Controller State Simulator</title>
+    <link rel="stylesheet" href="style-v2.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header>
+        <p class="eyebrow">WEEK 8–9 · THINKING IN STATES AND STEPS</p>
+        <h1>Xbox Wireless Controller <span>State Simulator</span></h1>
+        <p class="intro">A model of controller power, connection, pairing, button input, and battery logic.</p>
+      </header>
+
+      <section class="dashboard" aria-label="Controller simulator">
+        <div class="controller-area panel">
+          <div class="controller" id="controller" aria-label="Xbox controller illustration">
+            <svg class="controller-illustration" viewBox="0 0 800 430" aria-hidden="true">
+              <path class="controller-silhouette" d="M242 72C186 50 126 65 92 111c-24 33-31 78-22 119l25 121c9 44 38 68 70 62 24-5 40-27 56-54l34-60c14-25 38-39 66-41h158c28 2 52 16 66 41l34 60c16 27 32 49 56 54 32 6 61-18 70-62l25-121c9-41 2-86-22-119-34-46-94-61-150-39-38 15-78 25-128 25s-90-10-128-25Z"/>
+              <path class="controller-face" d="M246 91c45 19 93 29 154 29s109-10 154-29c39-16 82-5 106 28 18 24 23 58 16 90l-17 82c-5 24-23 35-43 30-15-4-25-19-37-40l-25-43c-13-23-37-36-63-36H309c-26 0-50 13-63 36l-25 43c-12 21-22 36-37 40-20 5-38-6-43-30l-17-82c-7-32-2-66 16-90 24-33 67-44 106-28Z"/>
+              <path class="controller-detail" d="M315 210c25-8 49-12 85-12s60 4 85 12"/>
+            </svg>
+            <button class="pair-button" id="pairButton" type="button" aria-label="Enter pairing mode">PAIR</button>
+            <button class="shoulder left-shoulder" type="button" data-input="LB">LB</button>
+            <button class="shoulder right-shoulder" type="button" data-input="RB">RB</button>
+            <button class="xbox-button" id="powerButton" type="button" aria-label="Turn controller on or off"><span class="xbox-mark">X</span></button>
+            <button class="menu-button view" type="button" data-input="View" aria-label="View button">▣</button>
+            <button class="menu-button menu" type="button" data-input="Menu" aria-label="Menu button">☰</button>
+            <div class="dpad" aria-label="D-pad">
+              <button class="dpad-up" type="button" data-input="D-pad Up" aria-label="D-pad up">▲</button><button class="dpad-left" type="button" data-input="D-pad Left" aria-label="D-pad left">◀</button><button class="dpad-center" type="button" data-input="D-pad" aria-label="D-pad center"></button><button class="dpad-right" type="button" data-input="D-pad Right" aria-label="D-pad right">▶</button><button class="dpad-down" type="button" data-input="D-pad Down" aria-label="D-pad down">▼</button>
+            </div>
+            <div class="sticks"><button type="button" data-input="Left stick" aria-label="Left stick"></button><button type="button" data-input="Right stick" aria-label="Right stick"></button></div>
+            <div class="action-buttons" aria-label="Action buttons"><button class="y" type="button" data-input="Y">Y</button><button class="x" type="button" data-input="X">X</button><button class="b" type="button" data-input="B">B</button><button class="a" type="button" data-input="A">A</button></div>
+          </div>
+          <p class="controller-hint">Click the Xbox button to power on, then click it again to power off.</p>
+        </div>
+
+        <aside class="status-panel panel" aria-live="polite">
+          <h2>Live status</h2>
+          <div class="state-card"><span>DISPLAYED STATE</span><strong id="stateLabel">OFF</strong><p id="statusMessage">Controller is powered off.</p></div>
+          <dl>
+            <div><dt>Power</dt><dd id="powerValue">Off</dd></div>
+            <div><dt>Connection</dt><dd id="connectionValue">Not active</dd></div>
+            <div><dt>Last input</dt><dd id="lastButtonValue">None</dd></div>
+          </dl>
+          <div class="battery-row"><div><span>Battery</span><strong id="batteryText">100%</strong></div><div class="battery"><i id="batteryFill"></i></div></div>
+        </aside>
+      </section>
+
+      <section class="controls-grid">
+        <section class="panel testing-panel"><h2>Connection testing</h2><p>These controls deliberately simulate outcomes so every branch can be tested.</p>
+          <div class="button-grid"><button id="successButton" type="button">Connection successful</button><button id="failButton" type="button">Connection failed</button><button id="reconnectButton" type="button">Reconnect</button><button id="pairSuccessButton" type="button">Pair successfully</button><button id="cancelPairButton" type="button">Cancel pairing</button></div>
+        </section>
+        <section class="panel battery-panel"><h2>Battery testing</h2><p>Use this simulated control to test low-battery behavior.</p><div class="battery-buttons"><button type="button" data-battery="-10">Use 10%</button><button type="button" data-battery="-25">Use 25%</button><button id="chargeButton" type="button">Charge to 100%</button></div><p class="small-note">At 0%, the controller automatically turns off.</p></section>
+        <section class="panel log-panel"><h2>Event log</h2><ol id="eventLog"><li>Ready to simulate.</li></ol></section>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
